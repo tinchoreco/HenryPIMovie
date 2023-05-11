@@ -3,11 +3,24 @@ import uvicorn
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
+import rarfile
 
 app = FastAPI()
 
-# Cargar el archivo CSV en un DataFrame de pandas
-df = pd.read_csv('dataset_transformed.csv')
+# Ruta al archivo .rar
+archivo_rar = 'dataset_transformed.rar'
+
+# Descomprimir el archivo .rar
+with rarfile.RarFile(archivo_rar, 'r') as rf:
+    # Obtener el nombre del archivo contenido en el .rar (puede haber varios archivos)
+    archivo_descomprimido = rf.namelist()[0]
+    
+    # Extraer el archivo a una ubicación específica
+    rf.extract(archivo_descomprimido)
+    
+# Leer el archivo descomprimido con pandas
+df = pd.read_csv(archivo_descomprimido)
+
 
 df['release_date'] = pd.to_datetime(df['release_date'])
 df['revenue'] = df['revenue'].astype(float)
