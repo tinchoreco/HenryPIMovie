@@ -7,7 +7,10 @@ from fastapi.exceptions import RequestValidationError
 app = FastAPI()
 
 # Cargar el archivo CSV en un DataFrame de pandas
-df = pd.read_csv('dataset_transformed.csv')
+try:
+    df = pd.read_csv('dataset_transformed.csv', encoding='utf-8')
+except UnicodeDecodeError:
+    df = pd.read_csv('dataset_transformed.csv', encoding='latin-1', errors='ignore')
 
 df['release_date'] = pd.to_datetime(df['release_date'])
 df['revenue'] = df['revenue'].astype(float)
