@@ -143,4 +143,4 @@ def retorno(pelicula: str):
 
 if __name__ == "__main__":
     import os
-    uvicorn.run("tu_archivo_principal:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    uvicorn.run("Main:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
