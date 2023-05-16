@@ -140,6 +140,16 @@ def retorno(pelicula: str):
         'anio': anio
     }
 
+@app.post("/recomendacion")
+def recomendacion(titulo: str):
+    # Aquí iría la lógica para recomendar películas similares al título ingresado
+    # Puedes utilizar tu modelo de recomendación o algoritmo preferido para calcular las películas similares
+    
+    # Ejemplo de lista de películas recomendadas
+    peliculas_recomendadas = ['Pelicula 1', 'Pelicula 2', 'Pelicula 3', 'Pelicula 4', 'Pelicula 5']
+    
+    return {'lista recomendada': peliculas_recomendadas}
+
 
 if __name__ == "__main__":
     import os
