@@ -38,6 +38,10 @@ meses = {
     'diciembre': 12
 }
 
+@app.get("/")
+async def root():
+    return {"message": "Hello, World!"}
+
 # Función para obtener la cantidad de películas que se estrenaron en un mes específico
 @app.get('/peliculas_mes')
 def peliculas_mes(mes: str):
