@@ -140,7 +140,7 @@ def retorno(pelicula: str):
         'anio': anio
     }
 
-@app.post("/recomendacion")
+@app.get("/recomendacion")
 def recomendacion(titulo: str):
     # Aquí iría la lógica para recomendar películas similares al título ingresado
     # Puedes utilizar tu modelo de recomendación o algoritmo preferido para calcular las películas similares
