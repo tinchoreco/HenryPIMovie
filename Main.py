@@ -74,8 +74,7 @@ def franquicia(nombre: str):
     # Filtrar el DataFrame por el nombre de la franquicia
     franquicia_df = df[df['belongs_to_collection'].str.strip() == nombre]
     
-    print(franquicia_df)
-    print(nombre)
+    
     # Obtener la cantidad de películas de la franquicia
     cantidad = franquicia_df.shape[0]
     
