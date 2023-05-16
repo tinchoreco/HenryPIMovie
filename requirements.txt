@@ -2,3 +2,4 @@ fastapi
 uvicorn
 pandas
 pip==23.1.1
+scikit-learn
