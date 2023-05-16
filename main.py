@@ -38,6 +38,14 @@ meses = {
     'diciembre': 12
 }
 
+# Crear una matriz TF-IDF de los títulos y descripciones de las películas
+tfidf = TfidfVectorizer(stop_words='english')
+tfidf_matrix = tfidf.fit_transform(df['title'] + ' ' + df['overview'].fillna(''))
+
+# Calcular la similitud de coseno entre las películas
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
+
 @app.get("/")
 async def root():
     return {"message": "Hello, World!"}
@@ -142,13 +150,19 @@ def retorno(pelicula: str):
 
 @app.get("/recomendacion")
 def recomendacion(titulo: str):
-    # Aquí iría la lógica para recomendar películas similares al título ingresado
-    # Puedes utilizar tu modelo de recomendación o algoritmo preferido para calcular las películas similares
+    # Obtener el índice de la película que se ingresa como parámetro
+    index = df[df['title'] == titulo].index[0]
+
+    # Obtener los puntajes de similitud de la película con todas las demás películas
+    scores = list(enumerate(cosine_sim[index]))
+
+    # Ordenar las películas por puntaje de similitud en orden descendente
+    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
+
+    # Obtener los títulos de las 5 películas más similares
+    top_movies = [df.iloc[score[0]]['title'] for score in sorted_scores[1:6]]
     
-    # Ejemplo de lista de películas recomendadas
-    peliculas_recomendadas = ['Pelicula 1', 'Pelicula 2', 'Pelicula 3', 'Pelicula 4', 'Pelicula 5']
-    
-    return {'lista recomendada': peliculas_recomendadas}
+    return {'lista recomendada': top_movies}
 
 
 if __name__ == "__main__":
