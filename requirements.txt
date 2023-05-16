@@ -1,5 +1,4 @@
 fastapi
 uvicorn
 pandas
-gunicorn
 pip==23.1.1
