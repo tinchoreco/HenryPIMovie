@@ -3,7 +3,8 @@ import uvicorn
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.exceptions import RequestValidationError
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 app = FastAPI()
 
 # Cargar el archivo CSV en un DataFrame de pandas
